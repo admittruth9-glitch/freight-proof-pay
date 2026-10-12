@@ -17,3 +17,6 @@ export function invoiceCsv(invoices: Invoice[]) {
   return [['Invoice ID', 'Transporter', 'Lane', 'Date', 'Amount (INR)', 'Exception (INR)', 'Status'], ...invoices.map(i => [i.id, i.carrier, i.lane, i.date, i.amount, i.exception, i.status])].map(row => row.map(escape).join(',')).join('\r\n');
 }
 export const money = (amount: number) => `₹${amount.toLocaleString('en-IN')}`;
+export function canApproveInvoice(invoice: Invoice) {
+  return invoice.exception === 0 && invoice.status !== 'Evidence needed' && invoice.status !== 'File selected';
+}

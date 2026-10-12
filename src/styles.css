@@ -201,3 +201,4 @@
 @media (max-width: 1100px) { .workspace-main { padding: 24px; } .workspace-shell { grid-template-columns: 210px minmax(0, 1fr); } }
 @media (max-width: 767px) { .workspace-shell, .workspace-shell.is-collapsed { grid-template-columns: 64px minmax(0, 1fr); } .workspace-sidebar { padding-left: 8px; padding-right: 8px; } .sidebar-label, .sidebar-extra { display: none; } .workspace-main { padding: 20px 16px; } .nav-item { justify-content: center; padding: 0; } .nav-item.active::before { left: -8px; } .metric-value { font-size: 23px; } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+@media (max-width: 450px) { .spend-metrics { grid-template-columns: minmax(0, 1fr); } }

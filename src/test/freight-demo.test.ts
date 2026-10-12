@@ -1,7 +1,15 @@
 import { describe, expect, it } from 'vitest';
-import { filterInvoices, invoiceCsv, sampleInvoices } from '@/lib/freight-demo';
+import { canApproveInvoice, filterInvoices, invoiceCsv, sampleInvoices } from '@/lib/freight-demo';
 
 describe('FreightProof demo workflows', () => {
+  it('does not approve uncertain or unprocessed invoices', () => {
+    const first = sampleInvoices[0];
+    if (!first) throw new Error('Sample invoice missing');
+    expect(canApproveInvoice(first)).toBe(false);
+    expect(canApproveInvoice({ ...first, exception: 0, status: 'Evidence needed' })).toBe(false);
+    expect(canApproveInvoice({ ...first, exception: 0, status: 'File selected' })).toBe(false);
+    expect(canApproveInvoice({ ...first, exception: 0, status: 'Verified' })).toBe(true);
+  });
   it('searches invoice IDs, transporters and lanes', () => {
     expect(filterInvoices(sampleInvoices, 'vrl', 'All statuses').map(i => i.id)).toEqual(['INV-2026-0842']);
     expect(filterInvoices(sampleInvoices, '0840', 'All statuses').map(i => i.carrier)).toEqual(['Gati Express']);
