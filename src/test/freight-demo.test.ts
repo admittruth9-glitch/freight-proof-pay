@@ -15,6 +15,8 @@ describe('FreightProof demo workflows', () => {
     const csv = invoiceCsv(filterInvoices(sampleInvoices, 'vrl', 'All statuses'));
     expect(csv).toContain('"INV-2026-0842"');
     expect(csv).not.toContain('INV-2026-0841');
-    expect(invoiceCsv([{ ...sampleInvoices[0], carrier: 'Invoice "sample", Ltd' }])).toContain('"Invoice ""sample"", Ltd"');
+    const first = sampleInvoices[0];
+    if (!first) throw new Error("Sample invoice missing");
+    expect(invoiceCsv([{ ...first, carrier: 'Invoice "sample", Ltd' }])).toContain('"Invoice ""sample"", Ltd"');
   });
 });
