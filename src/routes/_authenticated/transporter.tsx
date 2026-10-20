@@ -57,7 +57,7 @@ function TransporterPage() {
       if (error) throw error;
     },
     onSuccess: () => { setForm({ ...empty }); setErr(""); qc.invalidateQueries({ queryKey: ["my-expenses"] }); },
-    onError: (e) => setErr(e instanceof z.ZodError ? e.issues[0].message : "Could not save the expense."),
+    onError: (e) => setErr(e instanceof z.ZodError ? (e.issues[0]?.message ?? "Please check the form.") : "Could not save the expense."),
   });
 
   const remove = useMutation({
