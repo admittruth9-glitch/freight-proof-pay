@@ -38,7 +38,7 @@ function AdminPage() {
   });
 
   const review = useMutation({
-    mutationFn: async ({ id, status, note }: { id: string; status: "Approved" | "Rejected"; note?: string }) => {
+    mutationFn: async ({ id, status, note }: { id: string; status: "Approved" | "Rejected"; note?: string | undefined }) => {
       const { error } = await supabase.from("expenses").update({ status, admin_note: note?.slice(0, 500) || null }).eq("id", id);
       if (error) throw error;
     },

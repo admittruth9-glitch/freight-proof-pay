@@ -54,7 +54,7 @@ function AuthPage() {
         navigate({ to: "/dashboard" });
       } else {
         const parsed = signUpSchema.safeParse(form);
-        if (!parsed.success) return setMsg({ kind: "error", text: parsed.error.issues[0].message });
+        if (!parsed.success) return setMsg({ kind: "error", text: parsed.error.issues[0]?.message ?? "Please check the form." });
         const { email, password, ...meta } = parsed.data;
         const { data, error } = await supabase.auth.signUp({ email, password, options: { emailRedirectTo: window.location.origin + "/dashboard", data: meta } });
         if (error) return setMsg({ kind: "error", text: error.message });
